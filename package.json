@@ -1,0 +1,23 @@
+{
+  "name": "alt-all-in-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absentees/AltAllIn-CLI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/absentees/AltAllIn-CLI/issues"
+  },
+  "homepage": "https://github.com/absentees/AltAllIn-CLI#readme",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1"
+  }
+}
