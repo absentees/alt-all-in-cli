@@ -18,6 +18,7 @@
   "homepage": "https://github.com/absentees/AltAllIn-CLI#readme",
   "dependencies": {
     "babel-cli": "^6.24.1",
-    "babel-preset-es2017": "^6.24.1"
+    "babel-preset-es2017": "^6.24.1",
+    "x-ray": "^2.3.2"
   }
 }
