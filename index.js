@@ -18,13 +18,23 @@ function xToPromise(xQuery) {
   })
 }
 
+function parseStories(stories){
+	return stories.stories.map(function(story){
+		return {
+			title: 'title',
+			url: 'url'
+		};
+	});
+}
+
 (async () => {
 	const query = x('https://www.allin.wtf/current-issue', {
 		stories: ['p@html']
 	});
 
 	let stories = await xToPromise(query);
-	stories = parseStories
+	stories = parseStories(stories);
+	console.log(stories);
 
 
 	// xToPromise(query).then(
