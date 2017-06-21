@@ -7,6 +7,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 require('babel-polyfill');
 const Xray = require('x-ray');
 const x = Xray();
+const urlRegex = /(http|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g;
+const titleRegex = /.+?(?=, <a)/g;
 
 // https://github.com/matthewmueller/x-ray/issues/62
 function xToPromise(xQuery) {
@@ -23,10 +25,12 @@ function xToPromise(xQuery) {
 
 function parseStories(stories) {
 	return stories.stories.map(function (story) {
-		return {
-			title: 'title',
-			url: 'url'
-		};
+		if (urlRegex.test(story) && titleRegex.test(story)) {
+			return {
+				title: story.match(titleRegex)[0],
+				url: story.match(urlRegex)[0]
+			};
+		}
 	});
 }
 
