@@ -6,7 +6,11 @@ const x = Xray();
 const inquirer = require('inquirer');
 const urlRegex = /(http|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/g;
 const titleRegex = /.+?(?=, <a)/g;
-const read = require('node-readability');
+const reader = require('node-read');
+const toMarkdown = require('to-markdown');
+const cliMd = require("mdy");
+const tmp = require('tmp');
+const fs = require('fs');
 
 // https://github.com/matthewmueller/x-ray/issues/62
 function xToPromise(xQuery) {
@@ -45,42 +49,53 @@ async function getStories() {
 
 async function run() {
 	let stories = await getStories();
-	let titles = stories.map(function(choice){
+	let titles = stories.map(function (choice) {
 		return choice.title;
 	});
 	let choice;
+	let markdownArticle;
 
 	console.log('Alt All In CLI');
-	inquirer.prompt([
-		{
-			type: 'list',
-			name: 'articleChoice',
-			message: 'What would you like to read?',
-			choices: titles,
-			filter: function(val) {
-				let url;
+	inquirer.prompt([{
+		type: 'list',
+		name: 'articleChoice',
+		message: 'What would you like to read?',
+		choices: titles,
+		filter: function (val) {
+			let url;
 
-				stories.forEach(function(story){
-					if (story.title == val) {
-						url = story.url;
-					}
+			stories.forEach(function (story) {
+				if (story.title == val) {
+					url = story.url;
+				}
+			});
+
+			return url;
+		}
+	}]).then(function (answers) {
+
+		reader(answers.articleChoice, function (err, article, res) {
+			// Main Article
+			if (article.content) {
+				markdownArticle = toMarkdown(article.content);
+
+				tmp.file(function _tempFileCreated(err, path, fd, cleanupCallback) {
+					if (err) throw err;
+
+					fs.writeFile(path, markdownArticle, function (err) {
+						if (err) {
+							return console.log(err);
+						}
+						console.log(cliMd(path));
+					});
+
 				});
 
-				return url;
+			} else {
+				console.log("No article content");
 			}
-		}
-	]).then(function(answers){
-		read(answers.articleChoice, function (err, article, meta) {
-			// Main Article
-			console.log(article.content);
-			// Title
-			console.log(article.title);
-			// Close article to clean up jsdom and prevent leaks
-			article.close();
 		});
 	});
-
-
 };
 
 run();

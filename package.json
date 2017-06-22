@@ -22,7 +22,10 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "inquirer": "^3.1.1",
-    "node-readability": "^2.2.0",
+    "mdy": "^1.0.7",
+    "node-read": "^0.1.7",
+    "tmp": "^0.0.31",
+    "to-markdown": "^3.0.4",
     "x-ray": "^2.3.2"
   }
 }
