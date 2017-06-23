@@ -5,17 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/babel stories.js --out-file stories-compiled.js && node stories-compiled.js"
+    "build": "./node_modules/.bin/babel stories.js --out-file stories-compiled.js && node stories-compiled.js",
+		"prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/absentees/AltAllIn-CLI.git"
   },
+	"bin": {
+		"allin": "stories-compiled.js"
+	},
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/absentees/AltAllIn-CLI/issues"
   },
+	"start": "babel-node stories.js",
   "homepage": "https://github.com/absentees/AltAllIn-CLI#readme",
   "dependencies": {
     "axios": "^0.16.2",

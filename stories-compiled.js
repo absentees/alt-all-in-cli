@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+
 'use strict';
 
 let getStories = (() => {
@@ -44,7 +47,6 @@ let run = (() => {
 				return url;
 			}
 		}]).then(function (answers) {
-			console.log(answers);
 
 			reader(answers.articleChoice, function (err, article, res) {
 				// Main Article
