@@ -1,5 +1,7 @@
 # AltAllIn-CLI
 
+![demo](https://raw.githubusercontent.com/absentees/alt-all-in-cli/master/demo.gif)
+
 ## Clone it
 
 `git clone https://github.com/absentees/alt-all-in-cli.git`
